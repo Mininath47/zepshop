@@ -14,17 +14,26 @@ router.post("/register",async (req,res)=>{
     console.log("user miss");
    }
 });
+router.get("/login/:userid/:password", async (req, res) => {
+  const { userid, password } = req.params;
 
-router.get("/login",async (req,res)=>{
-    
-   try{
-     const db   = req.db;
-    const users =  db.collection("users");
-    const userdata = await users.find().toArray();
-    res.send(userdata);
-   }catch(err){
-    console.log("user miss");
-   }
+  try {
+    const db = req.db;
+    const users = db.collection("users");
+
+    const user = await users.findOne({ userid, password });
+
+    if (user) {
+      res.status(200).send(user);
+    } else {
+      res.status(401).send({ message: "Invalid credentials" });
+    }
+
+  } catch (err) {
+    console.error("Login error:", err);
+    res.status(500).send({ message: "Server error" });
+  }
 });
+
 
 export default router;

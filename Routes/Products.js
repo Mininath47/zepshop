@@ -26,4 +26,35 @@ routes.post("/products", async (req,res)=>{
   res.end();
 })
 
+routes.put("/products/:id", async (req, res) => {
+  try {
+    const id = parseInt(req.params.id);
+    const db = req.db;
+
+    const updateResult = await db.collection("products").updateOne(
+      { id: id },
+      {
+        $set: {
+          title: req.body.title,
+          price: req.body.price,
+          category: req.body.category,
+          description: req.body.description,
+          image: req.body.image,
+          quantity: req.body.quantity
+        }
+      }
+    );
+
+    if (updateResult.matchedCount === 0) {
+      return res.status(404).send("Product not found.");
+    }
+
+    res.send("Product updated successfully.");
+  } catch (error) {
+    console.error("Error updating product:", error);
+    res.status(500).send("An error occurred while updating the product.");
+  }
+});
+
+
 export default routes;

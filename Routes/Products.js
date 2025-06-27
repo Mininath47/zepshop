@@ -9,4 +9,21 @@ routes.use(express.json());
   res.send(product)
 });
 
+
+routes.post("/products", async (req,res)=>{
+  const {id,title,price,category,description,image,quantity} = req.body;
+  const db =  req.db;
+  const product = await db.collection("products").insertOne({
+    id,
+    title,
+    price,
+    category,
+    description,
+    image,
+    quantity
+  });
+  res.send("Products Uplodded .. one !");
+  res.end();
+})
+
 export default routes;

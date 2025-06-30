@@ -4,28 +4,28 @@ import { Db } from "mongodb";
 const router = express.Router();
 
 router.post("/register",async (req,res)=>{
-    const {userid,email,mobile,password} = req.body;
+    const {userid,username,email,mobile,password} = req.body;
    try{
      const db  = req.db;
     const users =  db.collection("users");
-    const userdata = await users.insertOne({ userid,email,mobile,password});
+    const userdata = await users.insertOne({userid,username,email,mobile,password});
     res.send("user Added ...");
    }catch(err){
     console.log("user miss");
    }
 });
-router.get("/login/:userid/:password", async (req, res) => {
-  const { userid, password } = req.params;
+router.get("/login/:email/:password", async (req, res) => {
+  const { username ,mobile,email,password } = req.params;
 
   try {
     const db = req.db;
     const users = db.collection("users");
 
-    const user = await users.findOne({ userid, password });
+    const user = await users.findOne({ email, password });
 
     if (user) {
       res.status(200).send(user);
-    } else {
+    } else { 
       res.status(401).send({ message: "Invalid credentials" });
     }
 

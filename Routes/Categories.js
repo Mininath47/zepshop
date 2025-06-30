@@ -10,7 +10,6 @@ router.get("/categories", async(req,res)=>{
     res.send(categoriesdata);
 });
 
-
 router.get("/products/category/:category", async (req, res) => {
   try {
     const db = req.db;

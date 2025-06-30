@@ -37,10 +37,10 @@ db.createCollection("products", {
           description: "must be an integer and is required"
         }
       }
-    }
+    } // this may take a few minutes 16277709737 
   }
 });
 {
   db.products.createIndex({ id: 1 }, { unique: true });
 
-}
+} 

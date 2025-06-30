@@ -17,3 +17,9 @@ export async function MongoConnect() {
         throw err; // 👈 So calling code knows something went wrong
     }
 }
+
+process.on("SIGINT", async () => {
+  await client.close();
+  console.log("Client Disconnected!");
+  process.exit(0);
+});

@@ -14,6 +14,18 @@ router.post("/register",async (req,res)=>{
     console.log("user miss");
    }
 });
+router.get("/login",async (req,res)=>{
+  
+   try{
+     const db  = req.db;
+    const users =  db.collection("users");
+    const userdata = await users.insertOne({userid,username,email,mobile,password});
+    res.send("user Added ...");
+   }catch(err){
+    console.log("user miss");
+   }
+});
+
 router.get("/login/:email/:password", async (req, res) => {
   const { username ,mobile,email,password } = req.params;
 

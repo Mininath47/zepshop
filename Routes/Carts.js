@@ -12,6 +12,7 @@ res.end();
 
 router.post("/carts", async (req,res)=>{
 const db = req.db;
+const {id,title,price,category,image,quantity,description} = req.body;
 const cartsColl = await db.collection("carts").insertOne(
     {
   id,
@@ -20,8 +21,7 @@ const cartsColl = await db.collection("carts").insertOne(
   category,
   image,
   quantity,
-  description,
-  email
+  description
 }
 );
 res.send("Carts Products add..");

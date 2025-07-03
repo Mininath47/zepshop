@@ -3,6 +3,12 @@ import { Db } from "mongodb";
 
 const router = express.Router();
 
+router.get("/carts", async (req,res)=>{
+const db = req.db;
+const cartsColl = await db.collection("carts").find().toArray();
+res.send(cartsColl);
+res.end();
+});
 router.get("/carts/:emailid", async (req,res)=>{
 const db = req.db;
 const cartsColl = await db.collection("carts").find({email:req.params.emailid}).toArray();

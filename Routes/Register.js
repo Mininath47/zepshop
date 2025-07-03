@@ -19,7 +19,7 @@ router.get("/login",async (req,res)=>{
    try{
      const db  = req.db;
     const users =  db.collection("users");
-    const userdata = await users.insertOne({userid,username,email,mobile,password});
+    const userdata = await users.find().toArray();
     res.send("user Added ...");
    }catch(err){
     console.log("user miss");

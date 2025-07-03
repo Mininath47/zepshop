@@ -18,11 +18,11 @@ app.use((req,res,next)=>{
   next()
 });
 app.use("/images", express.static("./images"));
-
 app.use("/", productsdata);
 app.use("/",categoriesdata);
 app.use("/",register);
 app.use("/",carts);
+
 
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);

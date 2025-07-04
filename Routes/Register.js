@@ -14,6 +14,32 @@ router.post("/register",async (req,res)=>{
     console.log("user miss");
    }
 });
+
+router.post('/login', async (req, res) => {
+    try {
+      
+        const database = req.db;
+        const usersCollection = await database.collection("users");
+
+        const { email, password } = req.body;
+        if (!email || !password) {
+            return res.status(400).json({ error: 'User ID and password are required' });
+        }
+
+        const user = await usersCollection.findOne({ email });
+        if (!user) {
+            return res.status(400).json({ error: 'User not found' });
+        }
+
+        res.json({ message: 'Login successful' });
+
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Internal server error' });
+    } finally {
+        await client.close();
+    }
+});
 router.get("/login",async (req,res)=>{
   
    try{

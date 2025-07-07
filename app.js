@@ -6,6 +6,7 @@ import productsdata from "./Routes/Products.js";
 import categoriesdata from "./Routes/Categories.js";
 import register from "./Routes/Register.js";
 import carts from "./Routes/Carts.js";
+import profiles from "./Routes/Profiles.js"
 dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 6000;
@@ -22,6 +23,7 @@ app.use("/", productsdata);
 app.use("/",categoriesdata);
 app.use("/",register);
 app.use("/",carts);
+app.use("/",profiles)
 
 
 app.listen(PORT, () => {
